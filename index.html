@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Happy Birthday Grandad!</title>
+  <title>Happy Birthday Baba!</title>
   <style>
     /* Reset + full-screen flex centering */
     * { margin:0; padding:0; box-sizing:border-box; }
@@ -47,19 +47,17 @@
 
   <!-- 1) Full-screen overlay with one button -->
   <div id="overlay">
-    <button id="startBtn">▶ Start Surprise!</button>
+    <button id="startBtn">▶ Happy Birthday Baba!</button>
   </div>
 
   <!-- 2) Hidden logo -->
-  <img id="logo"
-    src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/The_Beatles_logo.png/600px-The_Beatles_logo.png"
-    alt="The Beatles Logo">
+  <img id="logo" src="logo.png" alt="The Beatles Logo">
 
-  <!-- 3) Audio element (no autoplay) -->
-  <audio id="audioPlayer" src="https://cdn.pixabay.com/download/audio/2023/03/15/audio_1d316e6baf.mp3?filename=funny-upbeat-birthday-128773.mp3" loop></audio>
+  <!-- 3) Audio element (local MP3) -->
+  <audio id="audioPlayer" src="birthday.mp3" loop></audio>
 
   <script>
-    // Immediately run on page load
+    // Run after page loads
     window.addEventListener('DOMContentLoaded', () => {
       const overlay = document.getElementById('overlay');
       const btn     = document.getElementById('startBtn');
