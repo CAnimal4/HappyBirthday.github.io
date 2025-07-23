@@ -3,93 +3,65 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Happy Birthday Baba!</title>
+  <title>Happy Birthday Grandad!</title>
   <style>
-    /* Full‑screen black background, centered content */
-    body {
-      margin: 0;
-      padding: 0;
-      background: #000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      overflow: hidden;
-      font-family: sans-serif;
+    /* Full‑screen black, center everything */
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html, body {
+      width:100%; height:100%;
+      display:flex; align-items:center; justify-content:center;
+      background:#000; overflow:hidden;
+      font-family:sans-serif; color:#fff;
     }
-
-    /* Beatles logo */
+    /* Logo always visible & pulsing */
     img.logo {
-      display: none;           /* hidden until loaded */
-      max-width: 90%;
-      height: auto;
-      animation: fade 3s infinite ease-in-out;
+      max-width:90vw;
+      height:auto;
+      animation:pulse 3s ease-in-out infinite;
     }
-
-    /* Gentle fade animation */
-    @keyframes fade {
-      0%   { opacity: 1; }
-      50%  { opacity: 0.8; }
-      100% { opacity: 1; }
+    @keyframes pulse {
+      0%,100% { opacity:1; }
+      50%     { opacity:0.8; }
     }
-
-    /* Play button style */
+    /* Play button */
     #playButton {
-      display: none;           /* hidden unless needed */
-      position: absolute;
-      bottom: 30px;
-      background: transparent;
-      border: 2px solid #fff;
-      color: #fff;
-      padding: 10px 20px;
-      border-radius: 5px;
-      font-size: 1rem;
-      cursor: pointer;
+      position:absolute; bottom:2rem;
+      padding:0.75rem 1.5rem; font-size:1rem;
+      background:transparent; border:2px solid #fff;
+      border-radius:0.5rem; color:#fff; cursor:pointer;
+      display:none;
     }
     #playButton:hover {
-      background: #fff;
-      color: #000;
+      background:#fff; color:#000;
     }
   </style>
 </head>
 <body>
 
-  <!-- Logo -->
-  <img class="logo" src="./logo.png" alt="The Beatles logo">
+  <!-- 1) Logo (make sure logo.png matches this exactly) -->
+  <img class="logo" src="logo.png" alt="The Beatles Logo">
 
-  <!-- Audio: start muted so browsers will autoplay -->
-  <audio id="audioPlayer" src="./birthday.mp3" autoplay loop muted playsinline></audio>
+  <!-- 2) Audio (make sure birthday.mp3 matches exactly) -->
+  <audio id="audioPlayer" src="birthday.mp3" autoplay loop playsinline></audio>
 
-  <!-- Fallback button -->
+  <!-- 3) Fallback button -->
   <button id="playButton">► Play Music</button>
 
   <script>
-    const audio = document.getElementById('audioPlayer');
-    const logo  = document.querySelector('img.logo');
-    const btn   = document.getElementById('playButton');
+    window.addEventListener('load', () => {
+      const audio = document.getElementById('audioPlayer');
+      const btn   = document.getElementById('playButton');
 
-    // When logo image loads, show it
-    logo.onload = () => {
-      logo.style.display = 'block';
-    };
-    // If it fails, at least show the button
-    logo.onerror = () => {
-      btn.style.display = 'block';
-    };
+      // Try to play; if blocked, show Play button
+      audio.play().catch(() => {
+        btn.style.display = 'block';
+      });
 
-    // Try to autoplay (muted). Then unmute instantly.
-    audio.play().then(() => {
-      audio.muted = false;       // unmute once playing
-    }).catch(() => {
-      // Autoplay blocked: show Play button
-      btn.style.display = 'block';
-    });
-
-    // Play button click: start & unmute
-    btn.addEventListener('click', () => {
-      audio.muted = false;
-      audio.play();
-      btn.style.display = 'none';
+      // Button click: play
+      btn.addEventListener('click', () => {
+        audio.play();
+        btn.style.display = 'none';
+      });
     });
   </script>
 
